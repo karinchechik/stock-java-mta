@@ -22,7 +22,7 @@ public class Stock_java_mtaServlet extends HttpServlet {
 		
 		int result = (num1 + num2) * num3;
 		
-		String resultStr = new String("<h1>Result of (" + num1 + "+" + num2 + ")*" + num3 + " = " + result + "</h1>");
+		String resultStr = new String("<h1>Result of ( " + num1 + "+" + num2 + " )*" + num3 + " = " + result + "</h1>");
 		
 		// add result to print line:
 		resp.getWriter().println(resultStr);
