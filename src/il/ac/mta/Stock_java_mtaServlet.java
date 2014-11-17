@@ -42,7 +42,6 @@ public class Stock_java_mtaServlet extends HttpServlet {
 
 		String resultStr = line1 + "<br>" + line2 + "<br>" + line3;
 
-		
 		// add result to print line:
 		resp.getWriter().println(resultStr);
 	}
