@@ -1,7 +1,7 @@
 package il.ac.mta;
 
 public class NewStock {
-	//Members:
+	//Members: aa
 	private String stockSymbol;
 	private float ask;
 	private float bid;
