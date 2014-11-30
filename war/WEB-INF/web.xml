@@ -24,7 +24,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet>
 		<servlet-name>Portfolio_servlet</servlet-name>
-		<servlet-class>com.karin.stock.servlet.PortfolioServlet</servlet-class>
+		<servlet-class>il.ac.mta.servlet.PortfolioServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Portfolio_servlet</servlet-name>

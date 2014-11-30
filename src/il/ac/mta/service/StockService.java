@@ -1,17 +1,16 @@
-package com.karin.stock.service;
-
-import com.karin.stock.model.Portfolio;
+package il.ac.mta.service;
 
 import il.ac.mta.*;
+import il.ac.mta.model.Portfolio;
 
-public class PortfolioService {
+public class StockService {
 	
 	public Portfolio getPortfolio()
 	{
 		Portfolio myPortfolio = new Portfolio();
-		NewStock stock1 = new NewStock();
-		NewStock stock2 = new NewStock();
-		NewStock stock3 = new NewStock();
+		Stock stock1 = new Stock();
+		Stock stock2 = new Stock();
+		Stock stock3 = new Stock();
 		
 		//Date:
 		java.util.Date date = new java.util.Date();
@@ -41,7 +40,6 @@ public class PortfolioService {
 		myPortfolio.addStock(stock1);
 		myPortfolio.addStock(stock2);
 		myPortfolio.addStock(stock3);
-		
 		return myPortfolio;		
 	}
 

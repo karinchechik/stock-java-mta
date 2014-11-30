@@ -12,9 +12,9 @@ public class StockDetailsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 
-		NewStock stock1 = new NewStock();
-		NewStock stock2 = new NewStock();
-		NewStock stock3 = new NewStock();
+		Stock stock1 = new Stock();
+		Stock stock2 = new Stock();
+		Stock stock3 = new Stock();
 		
 		//Date:
 		java.util.Date date = new java.util.Date();

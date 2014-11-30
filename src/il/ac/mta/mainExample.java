@@ -6,7 +6,7 @@ public class mainExample {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("test");
-	    NewStock stock = new NewStock();
+	    Stock stock = new Stock();
 	    stock.setAsk((float)5.6);
 	    float x = stock.getAsk();
 	    System.out.println(x);

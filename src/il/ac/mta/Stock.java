@@ -1,6 +1,6 @@
 package il.ac.mta;
 
-public class NewStock {
+public class Stock {
 	//Members:
 	private String stockSymbol;
 	private float ask;
