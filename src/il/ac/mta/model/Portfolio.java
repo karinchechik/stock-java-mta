@@ -8,14 +8,15 @@ public class Portfolio {
 	
 	public final int MAX_PORTFOLIO_SIZE = 5;
 	
-	private int portfolioSize = 0;
-	public Stock[] stocks;
-	public StockStatus[] stockStatus;
+	private int portfolioSize;
+	private Stock[] stocks;
+	private StockStatus[] stockStatus;
 	public int i = 0;
-	public String title;
+	private String title;
 	
 	public Portfolio()
 	{
+		portfolioSize = 0;
 		stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		stockStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
 	}
@@ -26,7 +27,7 @@ public class Portfolio {
 	}
 	
 	//Setter to portfolio title:
-	public void setStockSymbol(String title){
+	public void setTitle(String title){
 		this.title = title;
 	}
 	
@@ -47,7 +48,7 @@ public class Portfolio {
 	
 	public String getHtmlString()
 	{
-		String str = "<h1>" + title + "</h1>" + "<br/>";
+		String str = "<h1>" + getTitle() + "</h1>" + "<br/>";
 		
 		for(i = 0; i < portfolioSize; i++)
 		{

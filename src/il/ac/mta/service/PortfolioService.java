@@ -43,7 +43,7 @@ public class PortfolioService {
 		myPortfolio.addStock(stock3);
 		
 		//add title to the portfolio:
-		myPortfolio.title = "portfolio";
+		myPortfolio.setTitle("portfolio");
 		
 		return myPortfolio;		
 	}
