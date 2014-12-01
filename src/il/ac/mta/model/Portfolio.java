@@ -12,6 +12,7 @@ public class Portfolio {
 	public Stock[] stocks;
 	public StockStatus[] stockStatus;
 	public int i = 0;
+	public String title = "portfolio";
 	
 	public Portfolio()
 	{
@@ -36,7 +37,7 @@ public class Portfolio {
 	
 	public String getHtmlString()
 	{
-		String str = "<h1>portfolio</h1>" + "<br/>";
+		String str = "<h1>" + title + "</h1>" + "<br/>";
 		
 		for(i = 0; i < portfolioSize; i++)
 		{

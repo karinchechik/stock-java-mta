@@ -1,7 +1,7 @@
 package il.ac.mta.servlet;
 
-import il.ac.mta.Stock;
 import il.ac.mta.model.Portfolio;
+import il.ac.mta.model.Stock;
 import il.ac.mta.service.PortfolioService;
 
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package il.ac.mta.service;
 
-import il.ac.mta.*;
 import il.ac.mta.model.Portfolio;
+import il.ac.mta.model.Stock;
 
 public class PortfolioService {
 	
