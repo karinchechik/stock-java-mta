@@ -12,12 +12,22 @@ public class Portfolio {
 	public Stock[] stocks;
 	public StockStatus[] stockStatus;
 	public int i = 0;
-	public String title = "portfolio";
+	public String title;
 	
 	public Portfolio()
 	{
 		stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		stockStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
+	}
+	
+	//Getter to portfolio title:
+	public String getTitle(){
+		return title;
+	}
+	
+	//Setter to portfolio title:
+	public void setStockSymbol(String title){
+		this.title = title;
 	}
 	
 	//METHOD:

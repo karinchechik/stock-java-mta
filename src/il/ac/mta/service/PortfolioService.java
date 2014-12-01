@@ -5,6 +5,7 @@ import il.ac.mta.model.Stock;
 
 public class PortfolioService {
 	
+	@SuppressWarnings("deprecation")
 	public Portfolio getPortfolio()
 	{
 		Portfolio myPortfolio = new Portfolio();
@@ -40,6 +41,9 @@ public class PortfolioService {
 		myPortfolio.addStock(stock1);
 		myPortfolio.addStock(stock2);
 		myPortfolio.addStock(stock3);
+		
+		//add title to the portfolio:
+		myPortfolio.title = "portfolio";
 		
 		return myPortfolio;		
 	}
