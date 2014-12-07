@@ -9,33 +9,16 @@ public class PortfolioService {
 	public Portfolio getPortfolio()
 	{
 		Portfolio myPortfolio = new Portfolio();
-		Stock stock1 = new Stock();
-		Stock stock2 = new Stock();
-		Stock stock3 = new Stock();
 		
 		//Date:
 		java.util.Date date = new java.util.Date();
 	    date.setYear(2014);
 	    date.setMonth(11); 
 	    date.setDate(15);
-		
-	    //stock1:
-		stock1.setStockSymbol("PIH");
-		stock1.setAsk(12.4f);
-		stock1.setBid(13.1f);
-		stock1.setDate(date);
-		
-		//stock2:
-		stock2.setStockSymbol("AAL");
-		stock2.setAsk(5.5f);
-		stock2.setBid(5.78f);
-		stock2.setDate(date);
-		
-		//stock3:
-		stock3.setStockSymbol("CAAS");
-		stock3.setAsk(31.5f);
-		stock3.setBid(31.2f);
-		stock3.setDate(date);
+	    
+	    Stock stock1 = new Stock("PIH", 12.4f, 13.1f,date);
+		Stock stock2 = new Stock("AAL", 5.5f, 5.78f, date);
+		Stock stock3 = new Stock("CAAS", 31.5f, 31.2f, date);
 		
 		//Add the stocks to the portfolio:
 		myPortfolio.addStock(stock1);
@@ -44,6 +27,8 @@ public class PortfolioService {
 		
 		//add title to the portfolio:
 		myPortfolio.setTitle("portfolio");
+		
+		// delete - Portfolio newPort = new Portfolio(myPortfolio);
 		
 		return myPortfolio;		
 	}

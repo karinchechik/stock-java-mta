@@ -7,6 +7,18 @@ public class Stock {
 		private float bid;
 		private java.util.Date date;
 		
+		public Stock(String stockSymbol, float ask, float bid, java.util.Date date) {
+			setStockSymbol(stockSymbol);
+			setAsk(ask);
+			setBid(bid);
+			setDate(date);
+		}
+		
+		//copy constructor:
+		public Stock(Stock stock) {
+			this(stock.stockSymbol, stock.ask, stock.bid, stock.date);			
+		}
+		
 		//Getters:
 		public String getStockSymbol(){
 			return stockSymbol;	

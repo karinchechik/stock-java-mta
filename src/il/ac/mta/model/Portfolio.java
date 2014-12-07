@@ -11,7 +11,6 @@ public class Portfolio {
 	private int portfolioSize;
 	private Stock[] stocks;
 	private StockStatus[] stockStatus;
-	public int i = 0;
 	private String title;
 	
 	public Portfolio()
@@ -19,6 +18,19 @@ public class Portfolio {
 		portfolioSize = 0;
 		stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		stockStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
+	}
+	
+	//copy constructor:
+	public Portfolio(Portfolio portfolio)
+	{
+		this();
+		
+		for (int i = 0; i < stocks.length; i++) {
+			stocks[i] = new Stock(portfolio.getStocks()[i]);
+		}
+		
+		this.stockStatus = portfolio.stockStatus;
+		this.setTitle(portfolio.getTitle());
 	}
 	
 	//Getter to portfolio title:
@@ -50,7 +62,7 @@ public class Portfolio {
 	{
 		String str = "<h1>" + getTitle() + "</h1>" + "<br/>";
 		
-		for(i = 0; i < portfolioSize; i++)
+		for(int i = 0; i < portfolioSize; i++)
 		{
 			str += stocks[i].getHtmlDescription() + "<br/>";
 		}

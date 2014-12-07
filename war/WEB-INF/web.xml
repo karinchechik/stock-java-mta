@@ -4,23 +4,6 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-	<servlet>
-		<servlet-name>Stock_java_mta</servlet-name>
-		<servlet-class>il.ac.mta.Stock_java_mtaServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Stock_java_mta</servlet-name>
-		<url-pattern>/stock_java_mta</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>Stock_servlet</servlet-name>
-		<servlet-class>il.ac.mta.StockDetailsServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Stock_servlet</servlet-name>
-		<url-pattern>/stockdetails</url-pattern>
-	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>Portfolio_servlet</servlet-name>
