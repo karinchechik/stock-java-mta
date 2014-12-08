@@ -16,9 +16,15 @@ public class PortfolioServlet extends HttpServlet {
 			throws IOException {
 		PortfolioService portfolioService = new PortfolioService();
 		Portfolio portfolio = portfolioService.getPortfolio();
+		
 		//unused for now: Stock[] stocks = portfolio.getStocks();
+		
+		//Portfolio newPort = new Portfolio(portfolio);
 		
 		resp.setContentType("text/html");
 		resp.getWriter().println(portfolio.getHtmlString());
+		/*resp.getWriter().println("</br>");
+		resp.getWriter().println(newPort.getHtmlString());*/
+		
 	}
 }

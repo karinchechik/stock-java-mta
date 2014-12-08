@@ -1,5 +1,7 @@
 package il.ac.mta.model;
 
+import java.util.Date;
+
 public class Stock {
 	//Members:
 		private String stockSymbol;
@@ -7,7 +9,16 @@ public class Stock {
 		private float bid;
 		private java.util.Date date;
 		
+		public Stock(){
+			this.stockSymbol = "";
+			this.ask = 0;
+			this.bid = 0;
+			this.date = new Date();
+		}
+		
 		public Stock(String stockSymbol, float ask, float bid, java.util.Date date) {
+			this();
+			
 			setStockSymbol(stockSymbol);
 			setAsk(ask);
 			setBid(bid);
