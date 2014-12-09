@@ -9,6 +9,9 @@ public class Stock {
 		private float bid;
 		private java.util.Date date;
 		
+		/**
+		 * c'tor that initializes all Stock members.
+		 */
 		public Stock(){
 			this.stockSymbol = "";
 			this.ask = 0;
@@ -16,6 +19,15 @@ public class Stock {
 			this.date = new Date();
 		}
 		
+		/**
+		 * 
+		 * c'tor that uses the first c'tor
+		 * and receives values to implement in the stock.  
+		 * @param stockSymbol
+		 * @param ask
+		 * @param bid
+		 * @param date
+		 */
 		public Stock(String stockSymbol, float ask, float bid, java.util.Date date) {
 			this();
 			
@@ -25,7 +37,10 @@ public class Stock {
 			setDate(date);
 		}
 		
-		//copy constructor:
+		/**
+		 * copy constructor of Stock.
+		 * @param stock
+		 */
 		public Stock(Stock stock) {
 			this(stock.stockSymbol, stock.ask, stock.bid, stock.date);			
 		}
@@ -58,7 +73,10 @@ public class Stock {
 			this.date = date;
 		}
 		
-		//Method:
+		/**
+		 * This method returns a string with all the stock details.
+		 * @return
+		 */
 		@SuppressWarnings("deprecation")
 		public String getHtmlDescription() {
 			String dateStr = date.getMonth() + "/" + date.getDate() + "/" + date.getYear();
