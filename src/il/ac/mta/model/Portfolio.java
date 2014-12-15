@@ -12,6 +12,11 @@ public class Portfolio {
 	private Stock[] stocks;
 	private StockStatus[] stockStatus;
 	private String title;
+	private float balance;
+	
+	public enum ALGO_RECOMMENDATION {
+		DO_NOTHING, BUY, SELL;		
+	}
 	
 	/**
 	 *c'tor definition of portfolio.
@@ -22,6 +27,7 @@ public class Portfolio {
 		portfolioSize = 0;
 		stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		stockStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
+		balance = 0;
 		this.setTitle("New Portfolio");
 	}
 
@@ -54,6 +60,7 @@ public class Portfolio {
 		{
 			stockStatus[i] = new StockStatus(portfolio.getStockStatus()[i]);
 		}
+		updateBalance(portfolio.getBalance());
 	}
 
 	//Getter to portfolio title:
@@ -81,11 +88,23 @@ public class Portfolio {
 	 */
 	public void addStock(Stock stock)
 	{
+		for(int i=0; i < portfolioSize; i++)
+		{
+			if(this.stocks[i].getStockSymbol().equals(stock.getStockSymbol()))
+			{
+				return;
+			}
+		}
+		
 		if(portfolioSize < MAX_PORTFOLIO_SIZE)
 		{
 			stocks[portfolioSize] = stock;
 			stockStatus[portfolioSize] = new StockStatus();
 			portfolioSize++;
+		}
+		else
+		{
+			System.out.println("Can't add new stock, portfolio can have only" + MAX_PORTFOLIO_SIZE + "stocks");
 		}
 	}
 	
@@ -93,20 +112,104 @@ public class Portfolio {
 	 * This method receives a stock and removes it from the portfolio.
 	 * @param stock
 	 */
-	public void removeStock(Stock stock)
+	public boolean removeStock(String stockSymbol)
 	{
 		for(int i=0; i < portfolioSize; i++)
 		{
-			if(this.stocks[i].getStockSymbol().equals(stock.getStockSymbol()))
+			if(this.stocks[i].getStockSymbol().equals(stockSymbol))
 			{
-				if(i != portfolioSize-1 && portfolioSize > 1)
-					for(int j = i; j < portfolioSize-1; j++)
-					{
-						this.stocks[j] = new Stock(this.stocks[j+1]);
-					}
+				//TODO: add a call to sell stock
+				if(portfolioSize == 1)
+				{
+					this.stocks[i] = null;
+					this.stockStatus[i] = null;
+				}
+				else
+				{
+					this.stocks[i] = this.stocks[portfolioSize-1];
+					this.stockStatus[i] = this.stockStatus[portfolioSize-1];
+					this.stocks[portfolioSize-1] = null;
+					this.stockStatus[portfolioSize-1] = null;
+				}
+				this.portfolioSize--;
+				return true;
 			}
 		}
-		this.portfolioSize--;
+		return false;
+	}
+	
+	//TODO: add java docs. and write like buy.
+	public boolean sellStock(String symbol, int quantity)
+	{
+		int tQuantity;
+		if(quantity > -2 && quantity != 0) //-1 and above are valid values except 0
+		{
+			for(int i=0; i < portfolioSize; i++)
+			{
+				if(this.stocks[i].getStockSymbol().equals(symbol))
+				{
+					if(quantity == -1)
+					{
+						updateBalance(stockStatus[i].getStockQuantity()* stocks[i].getBid());
+						stockStatus[i].setRecommendation(ALGO_RECOMMENDATION.SELL);
+						stockStatus[i].setStockQuantity(0);
+					}
+					else
+					{
+						tQuantity = (quantity > stockStatus[i].getStockQuantity()) ?
+								stockStatus[i].getStockQuantity() : quantity;
+						updateBalance(tQuantity * stocks[i].getBid());
+						stockStatus[i].setRecommendation(ALGO_RECOMMENDATION.SELL);
+						stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()-tQuantity);
+					}
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	//TODO: add java doc.
+	public boolean buyStock(String symbol, int quantity)
+	{
+		int maxQuantity; 
+		int tQuantity;
+		if(quantity > -2 && quantity != 0) //-1 and above are valid values except 0
+		{
+			for(int i=0; i < portfolioSize; i++)
+			{
+				if(this.stocks[i].getStockSymbol().equals(symbol))
+				{
+					maxQuantity = (int)(balance/stocks[i].getAsk());
+					tQuantity = maxQuantity;
+					if (quantity > -1)
+					{
+						tQuantity = (quantity > maxQuantity)? maxQuantity : quantity;
+					}
+					updateBalance(-tQuantity*stocks[i].getAsk());
+					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()+tQuantity);
+					stockStatus[i].setRecommendation(ALGO_RECOMMENDATION.BUY);
+					
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public float getStocksValue()
+	{
+		float sum = 0;
+		for(int i=0; i < portfolioSize; i++)
+		{
+			sum += stockStatus[i].getStockQuantity() * stocks[i].getBid();
+		}
+		return sum;
+	}
+	
+	public float getTotalValue()
+	{
+		return getStocksValue() + getBalance();
 	}
 	
 	public Stock[] getStocks()
@@ -118,6 +221,25 @@ public class Portfolio {
 		return stockStatus;
 	}
 	
+	public float getBalance(){
+		return balance;
+	}
+	
+	/**
+	 * A method that updates the balance of the stock.
+	 * @param amount
+	 */
+	public void updateBalance(float amount){
+		if (balance + amount < 0){
+			System.out.println("Error - The amount you requested to reduce from balance is higher then the balance you have!");
+		}
+		else
+		{
+			balance += amount;
+			System.out.println("The amount was added successfully.");
+		}
+	}
+	
 	/**
 	 * this method return an html string that includes the title of the portfolio
 	 * and the description of it's stocks.
@@ -126,10 +248,12 @@ public class Portfolio {
 	public String getHtmlString()
 	{
 		String str = "<h1>" + getTitle() + "</h1>" + "<br/>";
-		
+		str += "Total Portfolio Value: " + getTotalValue() +
+				"$, Total Stocks Value: " + getStocksValue() +
+				"$, Balance: " + getBalance() + "<br/>";
 		for(int i = 0; i < portfolioSize; i++)
 		{
-			str += stocks[i].getHtmlDescription() + "<br/>";
+			str += stocks[i].getHtmlDescription() + ", Quantity: " + stockStatus[i].getStockQuantity() +"<br/>";
 		}
 		return str;
 	}
@@ -140,14 +264,11 @@ public class Portfolio {
 	 *
 	 */
 	public class StockStatus{
-		private final static int DO_NOTHING = 0;
-		private final static int BUY = 1;
-		private final static int SELL = 2;
 		
 		private String symbol;
 		private float currentBid, currentAsk;
 		private Date date;
-		private int recommendation;
+		private ALGO_RECOMMENDATION recommendation;
 		private int stockQuantity;
 		
 		/**
@@ -158,7 +279,7 @@ public class Portfolio {
 			currentAsk = 0;
 			currentBid = 0;
 			date = new Date();
-			recommendation = 0;
+			recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
 			stockQuantity = 0;
 		}
 		
@@ -209,11 +330,11 @@ public class Portfolio {
 			this.date = date;
 		}
 
-		public int getRecommendation() {
+		public ALGO_RECOMMENDATION getRecommendation() {
 			return recommendation;
 		}
 
-		public void setRecommendation(int recommendation) {
+		public void setRecommendation(ALGO_RECOMMENDATION recommendation) {
 			this.recommendation = recommendation;
 		}
 
