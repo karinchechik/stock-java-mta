@@ -14,7 +14,7 @@ public class PortfolioService {
 	 */
 	public Portfolio getPortfolio()
 	{
-		Portfolio myPortfolio = new Portfolio("portfolio");
+		Portfolio myPortfolio = new Portfolio("Exercise 7 portfolio");
 		
 		//Date:
 		java.util.Date date = new java.util.Date();
@@ -32,7 +32,9 @@ public class PortfolioService {
 		myPortfolio.addStock(stock3);
 		
 		myPortfolio.updateBalance(10000f);
-		myPortfolio.buyStock("PIH", 10);
+		myPortfolio.buyStock("PIH", 20);
+		myPortfolio.buyStock("AAL", 30);
+		myPortfolio.buyStock("CAAS", 40);
 		
 		return myPortfolio;		
 	}

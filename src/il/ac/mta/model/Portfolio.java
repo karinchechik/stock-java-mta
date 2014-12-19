@@ -100,11 +100,15 @@ public class Portfolio {
 		{
 			stocks[portfolioSize] = stock;
 			stockStatus[portfolioSize] = new StockStatus();
+			stockStatus[portfolioSize].setSymbol(stock.getStockSymbol());
+			stockStatus[portfolioSize].setCurrentAsk(stock.getAsk());
+			stockStatus[portfolioSize].setCurrentBid(stock.getBid());
+			stockStatus[portfolioSize].setDate(stock.getDate());
 			portfolioSize++;
 		}
 		else
 		{
-			System.out.println("Can't add new stock, portfolio can have only" + MAX_PORTFOLIO_SIZE + "stocks");
+			System.out.println("Can't add new stock, portfolio can have only " + MAX_PORTFOLIO_SIZE + " stocks");
 		}
 	}
 	
@@ -118,7 +122,11 @@ public class Portfolio {
 		{
 			if(this.stocks[i].getStockSymbol().equals(stockSymbol))
 			{
-				//TODO: add a call to sell stock
+				if(this.stockStatus[i].getStockQuantity() != 0)
+				{
+					sellStock(stockSymbol, -1);
+				}
+				
 				if(portfolioSize == 1)
 				{
 					this.stocks[i] = null;
@@ -174,19 +182,25 @@ public class Portfolio {
 	{
 		int maxQuantity; 
 		int tQuantity;
+		
 		if(quantity > -2 && quantity != 0) //-1 and above are valid values except 0
 		{
 			for(int i=0; i < portfolioSize; i++)
 			{
 				if(this.stocks[i].getStockSymbol().equals(symbol))
 				{
-					maxQuantity = (int)(balance/stocks[i].getAsk());
-					tQuantity = maxQuantity;
-					if (quantity > -1)
+					maxQuantity = (int)(balance / stocks[i].getAsk());
+					tQuantity = quantity;
+					if (quantity == -1)
 					{
-						tQuantity = (quantity > maxQuantity)? maxQuantity : quantity;
+						tQuantity = maxQuantity;
 					}
-					updateBalance(-tQuantity*stocks[i].getAsk());
+					else if (quantity > maxQuantity){
+						System.out.println("Not enough balance to complete purchase!");
+						return false;
+					}
+					
+					updateBalance(-tQuantity * stocks[i].getAsk());
 					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()+tQuantity);
 					stockStatus[i].setRecommendation(ALGO_RECOMMENDATION.BUY);
 					
@@ -197,6 +211,7 @@ public class Portfolio {
 		return false;
 	}
 	
+	//TODO: add java doc + bid or current bid?
 	public float getStocksValue()
 	{
 		float sum = 0;
@@ -205,6 +220,10 @@ public class Portfolio {
 			sum += stockStatus[i].getStockQuantity() * stocks[i].getBid();
 		}
 		return sum;
+	}
+	
+	public float getBalance(){
+		return balance;
 	}
 	
 	public float getTotalValue()
@@ -221,22 +240,18 @@ public class Portfolio {
 		return stockStatus;
 	}
 	
-	public float getBalance(){
-		return balance;
-	}
-	
 	/**
 	 * A method that updates the balance of the stock.
 	 * @param amount
 	 */
 	public void updateBalance(float amount){
 		if (balance + amount < 0){
-			System.out.println("Error - The amount you requested to reduce from balance is higher then the balance you have!");
+			System.out.println("Error - Not enough balance to complete purchase!");
 		}
 		else
 		{
 			balance += amount;
-			System.out.println("The amount was added successfully.");
+			System.out.println("The amount was added/reduced successfully.");
 		}
 	}
 	
