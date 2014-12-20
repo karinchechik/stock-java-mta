@@ -2,8 +2,6 @@ package il.ac.mta.model;
 
 import java.util.Date;
 
-import il.ac.mta.*;
-
 public class Portfolio {
 	
 	public final int MAX_PORTFOLIO_SIZE = 5;
@@ -146,38 +144,50 @@ public class Portfolio {
 		return false;
 	}
 	
-	//TODO: add java docs. and write like buy.
+	/**
+	 * This method sells stock (from 1 to all the stocks). 
+	 * @param symbol
+	 * @param quantity
+	 * @return
+	 */
 	public boolean sellStock(String symbol, int quantity)
 	{
 		int tQuantity;
+		int maxQuantity;
 		if(quantity > -2 && quantity != 0) //-1 and above are valid values except 0
 		{
 			for(int i=0; i < portfolioSize; i++)
 			{
 				if(this.stocks[i].getStockSymbol().equals(symbol))
 				{
+					maxQuantity = stockStatus[i].getStockQuantity();
+					tQuantity = quantity;
 					if(quantity == -1)
 					{
-						updateBalance(stockStatus[i].getStockQuantity()* stocks[i].getBid());
-						stockStatus[i].setRecommendation(ALGO_RECOMMENDATION.SELL);
-						stockStatus[i].setStockQuantity(0);
+						tQuantity = maxQuantity;
 					}
-					else
+					else if(quantity > maxQuantity)
 					{
-						tQuantity = (quantity > stockStatus[i].getStockQuantity()) ?
-								stockStatus[i].getStockQuantity() : quantity;
-						updateBalance(tQuantity * stocks[i].getBid());
-						stockStatus[i].setRecommendation(ALGO_RECOMMENDATION.SELL);
-						stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()-tQuantity);
+						System.out.println("Not enough stocks to sell!");
+						return false;
 					}
+
+					updateBalance(tQuantity * stocks[i].getBid());
+					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()-tQuantity);
 					return true;
 				}
 			}
 		}
 		return false;
 	}
+
 	
-	//TODO: add java doc.
+	/**
+	 * This method buys stocks (from 1 to as many as possible according to the balance).
+	 * @param symbol
+	 * @param quantity
+	 * @return
+	 */
 	public boolean buyStock(String symbol, int quantity)
 	{
 		int maxQuantity; 
@@ -202,7 +212,6 @@ public class Portfolio {
 					
 					updateBalance(-tQuantity * stocks[i].getAsk());
 					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()+tQuantity);
-					stockStatus[i].setRecommendation(ALGO_RECOMMENDATION.BUY);
 					
 					return true;
 				}

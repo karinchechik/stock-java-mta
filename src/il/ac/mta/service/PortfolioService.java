@@ -32,9 +32,14 @@ public class PortfolioService {
 		myPortfolio.addStock(stock3);
 		
 		myPortfolio.updateBalance(10000f);
+		
 		myPortfolio.buyStock("PIH", 20);
 		myPortfolio.buyStock("AAL", 30);
 		myPortfolio.buyStock("CAAS", 40);
+		
+		// Requested actions from ex07.
+		myPortfolio.sellStock("AAL", -1);
+		myPortfolio.removeStock("CAAS");
 		
 		return myPortfolio;		
 	}
