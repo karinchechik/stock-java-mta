@@ -1,7 +1,13 @@
 package il.ac.mta.model;
 
 import java.util.Date;
-
+/**
+ * This is a class of portfolio.
+ * Every portfolio can hold stocks.
+ * Every stock has stock status that is private to the portfolio holder.
+ * @author karin
+ *
+ */
 public class Portfolio {
 	
 	public final int MAX_PORTFOLIO_SIZE = 5;
@@ -101,7 +107,7 @@ public class Portfolio {
 			stockStatus[portfolioSize].setSymbol(stock.getStockSymbol());
 			stockStatus[portfolioSize].setCurrentAsk(stock.getAsk());
 			stockStatus[portfolioSize].setCurrentBid(stock.getBid());
-			stockStatus[portfolioSize].setDate(stock.getDate());
+			stockStatus[portfolioSize].setDate(new Date(stock.date.getTime()));
 			portfolioSize++;
 		}
 		else
@@ -172,7 +178,7 @@ public class Portfolio {
 						return false;
 					}
 
-					updateBalance(tQuantity * stocks[i].getBid());
+					updateBalance(tQuantity * stockStatus[i].getCurrentBid());
 					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()-tQuantity);
 					return true;
 				}
@@ -199,7 +205,7 @@ public class Portfolio {
 			{
 				if(this.stocks[i].getStockSymbol().equals(symbol))
 				{
-					maxQuantity = (int)(balance / stocks[i].getAsk());
+					maxQuantity = (int)(balance / stockStatus[i].getCurrentAsk());
 					tQuantity = quantity;
 					if (quantity == -1)
 					{
@@ -210,7 +216,7 @@ public class Portfolio {
 						return false;
 					}
 					
-					updateBalance(-tQuantity * stocks[i].getAsk());
+					updateBalance(-tQuantity * stockStatus[i].getCurrentAsk());
 					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()+tQuantity);
 					
 					return true;
@@ -226,7 +232,7 @@ public class Portfolio {
 		float sum = 0;
 		for(int i=0; i < portfolioSize; i++)
 		{
-			sum += stockStatus[i].getStockQuantity() * stocks[i].getBid();
+			sum += stockStatus[i].getStockQuantity() * stockStatus[i].getCurrentBid();
 		}
 		return sum;
 	}
@@ -271,7 +277,7 @@ public class Portfolio {
 	 */
 	public String getHtmlString()
 	{
-		String str = "<h1>" + getTitle() + "</h1>" + "<br/>";
+		String str = "<h1><font color=green>" + getTitle() + "</font></h1>" + "<br/>";
 		str += "Total Portfolio Value: " + getTotalValue() +
 				"$, Total Stocks Value: " + getStocksValue() +
 				"$, Balance: " + getBalance() + "<br/>";
@@ -302,7 +308,6 @@ public class Portfolio {
 			symbol = "None";
 			currentAsk = 0;
 			currentBid = 0;
-			date = new Date();
 			recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
 			stockQuantity = 0;
 		}
@@ -317,7 +322,7 @@ public class Portfolio {
 			setSymbol(stockStatus.symbol);
 			setCurrentAsk(stockStatus.currentAsk);
 			setCurrentBid(stockStatus.currentBid);
-			setDate(stockStatus.date);
+			this.date = new Date(stockStatus.date.getTime());
 			setRecommendation(stockStatus.recommendation);
 			setStockQuantity(stockStatus.stockQuantity);
 		}

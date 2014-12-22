@@ -1,13 +1,22 @@
 package il.ac.mta.model;
 
+import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * This is a class of stock.
+ * Every stock has a unique symbol.
+ * @author karin
+ *
+ */
 public class Stock {
 	//Members:
 		private String stockSymbol;
 		private float ask;
 		private float bid;
-		private java.util.Date date;
+		//java.util.Date date;
+		Calendar basicDate = Calendar.getInstance();
+		java.util.Date date = basicDate.getTime(); 
 		
 		/**
 		 * c'tor that initializes all Stock members.
@@ -16,7 +25,6 @@ public class Stock {
 			this.stockSymbol = "";
 			this.ask = 0;
 			this.bid = 0;
-			this.date = new Date();
 		}
 		
 		/**
@@ -28,13 +36,13 @@ public class Stock {
 		 * @param bid
 		 * @param date
 		 */
-		public Stock(String stockSymbol, float ask, float bid, java.util.Date date) {
+		public Stock(String stockSymbol, float ask, float bid, Date date) {
 			this();
 			
 			setStockSymbol(stockSymbol);
 			setAsk(ask);
 			setBid(bid);
-			setDate(date);
+			setDate(new Date(date.getTime()));
 		}
 		
 		/**
@@ -42,7 +50,7 @@ public class Stock {
 		 * @param stock
 		 */
 		public Stock(Stock stock) {
-			this(stock.stockSymbol, stock.ask, stock.bid, stock.date);			
+			this(stock.stockSymbol, stock.ask, stock.bid, new Date(stock.date.getTime()));			
 		}
 		
 		//Getters:
@@ -69,7 +77,7 @@ public class Stock {
 		public void setBid(float bid) {
 			this.bid = bid;
 		}
-		public void setDate(java.util.Date date) {
+		public void setDate(Date date) {
 			this.date = date;
 		}
 		
@@ -79,7 +87,7 @@ public class Stock {
 		 */
 		@SuppressWarnings("deprecation")
 		public String getHtmlDescription() {
-			String dateStr = date.getMonth() + "/" + date.getDate() + "/" + date.getYear();
+			String dateStr = (date.getMonth()+1) + "/" + date.getDate() + "/" + (date.getYear()+1900);
 			String str = "<b>" + "Stock symbol: " + "</b>" + stockSymbol + ", " + "<b>" + "Ask: " + "</b>" + ask + ", " + "<b>" + "Bid: " + "</b>" + bid + ", " + "<b>" + "Date: " + "</b>" + dateStr;
 			return str;
 		}
