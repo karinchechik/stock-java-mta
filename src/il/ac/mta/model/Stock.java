@@ -1,5 +1,7 @@
 package il.ac.mta.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -14,9 +16,10 @@ public class Stock {
 		private String stockSymbol;
 		private float ask;
 		private float bid;
-		//java.util.Date date;
 		Calendar basicDate = Calendar.getInstance();
 		java.util.Date date = basicDate.getTime(); 
+		
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		
 		/**
 		 * c'tor that initializes all Stock members.
@@ -85,9 +88,10 @@ public class Stock {
 		 * This method returns a string with all the stock details.
 		 * @return
 		 */
-		@SuppressWarnings("deprecation")
+
 		public String getHtmlDescription() {
-			String dateStr = (date.getMonth()+1) + "/" + date.getDate() + "/" + (date.getYear()+1900);
+			//String dateStr = (date.getMonth()+1) + "/" + date.getDate() + "/" + (date.getYear()+1900);
+			String dateStr = df.format(date.getTime()) ;
 			String str = "<b>" + "Stock symbol: " + "</b>" + stockSymbol + ", " + "<b>" + "Ask: " + "</b>" + ask + ", " + "<b>" + "Bid: " + "</b>" + bid + ", " + "<b>" + "Date: " + "</b>" + dateStr;
 			return str;
 		}

@@ -10,7 +10,9 @@ import java.util.Date;
  */
 public class Portfolio {
 	
-	public final int MAX_PORTFOLIO_SIZE = 5;
+	public static final int MAX_PORTFOLIO_SIZE = 5;
+	public static final int SELL_ALL = -1;
+	public static final int BUY_ALL = -1;
 	
 	private int portfolioSize;
 	private Stock[] stocks;
@@ -48,7 +50,7 @@ public class Portfolio {
 	
 	/**
 	 * copy constructor.
-	 * Receives an instance and copies it.
+	 * Receives an instance of portfolio and copies it.
 	 * @param portfolio
 	 */
 	public Portfolio(Portfolio portfolio)
@@ -87,7 +89,6 @@ public class Portfolio {
 	
 	/**
 	 * This method adds a new stock to the portfolio.
-	 * 
 	 * @param stock
 	 */
 	public void addStock(Stock stock)
@@ -128,7 +129,7 @@ public class Portfolio {
 			{
 				if(this.stockStatus[i].getStockQuantity() != 0)
 				{
-					sellStock(stockSymbol, -1);
+					sellStock(stockSymbol, SELL_ALL);
 				}
 				
 				if(portfolioSize == 1)
@@ -168,7 +169,7 @@ public class Portfolio {
 				{
 					maxQuantity = stockStatus[i].getStockQuantity();
 					tQuantity = quantity;
-					if(quantity == -1)
+					if(quantity == SELL_ALL)
 					{
 						tQuantity = maxQuantity;
 					}
@@ -207,7 +208,7 @@ public class Portfolio {
 				{
 					maxQuantity = (int)(balance / stockStatus[i].getCurrentAsk());
 					tQuantity = quantity;
-					if (quantity == -1)
+					if (quantity == BUY_ALL)
 					{
 						tQuantity = maxQuantity;
 					}
@@ -226,7 +227,10 @@ public class Portfolio {
 		return false;
 	}
 	
-	//TODO: add java doc + bid or current bid?
+	/**
+	 * The get stocks value methods return the value of all the stocks in this portfolio.
+	 * @return
+	 */
 	public float getStocksValue()
 	{
 		float sum = 0;
@@ -241,6 +245,10 @@ public class Portfolio {
 		return balance;
 	}
 	
+	/**
+	 * This method returns the value of the portfolio = balance + value of the stocks.
+	 * @return
+	 */
 	public float getTotalValue()
 	{
 		return getStocksValue() + getBalance();
@@ -283,7 +291,7 @@ public class Portfolio {
 				"$, Balance: " + getBalance() + "<br/>";
 		for(int i = 0; i < portfolioSize; i++)
 		{
-			str += stocks[i].getHtmlDescription() + ", Quantity: " + stockStatus[i].getStockQuantity() +"<br/>";
+			str += stocks[i].getHtmlDescription() + ", <b>Quantity:</b> " + stockStatus[i].getStockQuantity() +"<br/>";
 		}
 		return str;
 	}
