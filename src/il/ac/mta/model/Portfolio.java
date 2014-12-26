@@ -15,7 +15,6 @@ public class Portfolio {
 	public static final int BUY_ALL = -1;
 	
 	private int portfolioSize;
-	private Stock[] stocks;
 	private StockStatus[] stockStatus;
 	private String title;
 	private float balance;
@@ -31,7 +30,6 @@ public class Portfolio {
 	public Portfolio()
 	{
 		portfolioSize = 0;
-		stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		stockStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
 		balance = 0;
 		this.setTitle("New Portfolio");
@@ -57,10 +55,6 @@ public class Portfolio {
 	{
 		this(portfolio.getTitle());
 		setPortfolioSize(portfolio.getPortfolioSize());
-		
-		for (int i = 0; i < portfolioSize; i++) {
-			stocks[i] = new Stock(portfolio.getStocks()[i]);
-		}
 		
 		for(int i = 0; i < portfolioSize; i++)
 		{
@@ -90,11 +84,11 @@ public class Portfolio {
 	 * This method adds a new stock to the portfolio.
 	 * @param stock
 	 */
-	public void addStock(Stock stock)
+	public void addStockStatus(StockStatus stockStatus)
 	{
 		for(int i=0; i < portfolioSize; i++)
 		{
-			if(this.stocks[i].getStockSymbol().equals(stock.getStockSymbol()))
+			if(this.stockStatus[i].getStockSymbol().equals(stockStatus.getStockSymbol()))
 			{
 				return;
 			}
@@ -102,12 +96,11 @@ public class Portfolio {
 		
 		if(portfolioSize < MAX_PORTFOLIO_SIZE)
 		{
-			stocks[portfolioSize] = stock;
-			stockStatus[portfolioSize] = new StockStatus();
-			stockStatus[portfolioSize].setStockSymbol(stock.getStockSymbol());
-			stockStatus[portfolioSize].setAsk(stock.getAsk());
-			stockStatus[portfolioSize].setBid(stock.getBid());
-			stockStatus[portfolioSize].setDate(new Date(stock.date.getTime()));
+			this.stockStatus[portfolioSize] = new StockStatus();
+			this.stockStatus[portfolioSize].setStockSymbol(stockStatus.getStockSymbol());
+			this.stockStatus[portfolioSize].setAsk(stockStatus.getAsk());
+			this.stockStatus[portfolioSize].setBid(stockStatus.getBid());
+			this.stockStatus[portfolioSize].setDate(new Date(stockStatus.date.getTime()));
 			portfolioSize++;
 		}
 		else
@@ -124,7 +117,7 @@ public class Portfolio {
 	{
 		for(int i=0; i < portfolioSize; i++)
 		{
-			if(this.stocks[i].getStockSymbol().equals(stockSymbol))
+			if(this.stockStatus[i].getStockSymbol().equals(stockSymbol))
 			{
 				if(this.stockStatus[i].getStockQuantity() != 0)
 				{
@@ -133,14 +126,11 @@ public class Portfolio {
 				
 				if(portfolioSize == 1)
 				{
-					this.stocks[i] = null;
 					this.stockStatus[i] = null;
 				}
 				else
 				{
-					this.stocks[i] = this.stocks[portfolioSize-1];
 					this.stockStatus[i] = this.stockStatus[portfolioSize-1];
-					this.stocks[portfolioSize-1] = null;
 					this.stockStatus[portfolioSize-1] = null;
 				}
 				this.portfolioSize--;
@@ -164,7 +154,7 @@ public class Portfolio {
 		{
 			for(int i=0; i < portfolioSize; i++)
 			{
-				if(this.stocks[i].getStockSymbol().equals(symbol))
+				if(this.stockStatus[i].getStockSymbol().equals(symbol))
 				{
 					maxQuantity = stockStatus[i].getStockQuantity();
 					tQuantity = quantity;
@@ -203,7 +193,7 @@ public class Portfolio {
 		{
 			for(int i=0; i < portfolioSize; i++)
 			{
-				if(this.stocks[i].getStockSymbol().equals(symbol))
+				if(this.stockStatus[i].getStockSymbol().equals(symbol))
 				{
 					maxQuantity = (int)(balance / stockStatus[i].getAsk());
 					tQuantity = quantity;
@@ -253,11 +243,6 @@ public class Portfolio {
 		return getStocksValue() + getBalance();
 	}
 	
-	public Stock[] getStocks()
-	{
-		return stocks;
-	}
-	
 	public StockStatus[] getStockStatus() {
 		return stockStatus;
 	}
@@ -290,7 +275,7 @@ public class Portfolio {
 				"$, <b>Balance:</b> " + getBalance() + "<br/>";
 		for(int i = 0; i < portfolioSize; i++)
 		{
-			str += stocks[i].getHtmlDescription() + ", <b>Quantity:</b> " + stockStatus[i].getStockQuantity() +"<br/>";
+			str += stockStatus[i].getHtmlDescription() + ", <b>Quantity:</b> " + stockStatus[i].getStockQuantity() +"<br/>";
 		}
 		return str;
 	}

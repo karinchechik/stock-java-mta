@@ -51,5 +51,12 @@ public class StockStatus extends Stock{
 		this.stockQuantity = stockQuantity;
 	}
 	
-	
+	public StockStatus(String stockSymbol, float ask, float bid, Date date) {
+		this();
+		
+		setStockSymbol(stockSymbol);
+		setAsk(ask);
+		setBid(bid);
+		setDate(new Date(date.getTime()));
+	}
 }
