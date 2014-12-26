@@ -69,12 +69,11 @@ public class Portfolio {
 		updateBalance(portfolio.getBalance());
 	}
 
-	//Getter to portfolio title:
+	//Getters & Setters:
 	public String getTitle(){
 		return title;
 	}
 	
-	//Setter to portfolio title:
 	public void setTitle(String title){
 		this.title = title;
 	}
@@ -105,9 +104,9 @@ public class Portfolio {
 		{
 			stocks[portfolioSize] = stock;
 			stockStatus[portfolioSize] = new StockStatus();
-			stockStatus[portfolioSize].setSymbol(stock.getStockSymbol());
-			stockStatus[portfolioSize].setCurrentAsk(stock.getAsk());
-			stockStatus[portfolioSize].setCurrentBid(stock.getBid());
+			stockStatus[portfolioSize].setStockSymbol(stock.getStockSymbol());
+			stockStatus[portfolioSize].setAsk(stock.getAsk());
+			stockStatus[portfolioSize].setBid(stock.getBid());
 			stockStatus[portfolioSize].setDate(new Date(stock.date.getTime()));
 			portfolioSize++;
 		}
@@ -179,7 +178,7 @@ public class Portfolio {
 						return false;
 					}
 
-					updateBalance(tQuantity * stockStatus[i].getCurrentBid());
+					updateBalance(tQuantity * stockStatus[i].getBid());
 					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()-tQuantity);
 					return true;
 				}
@@ -206,7 +205,7 @@ public class Portfolio {
 			{
 				if(this.stocks[i].getStockSymbol().equals(symbol))
 				{
-					maxQuantity = (int)(balance / stockStatus[i].getCurrentAsk());
+					maxQuantity = (int)(balance / stockStatus[i].getAsk());
 					tQuantity = quantity;
 					if (quantity == BUY_ALL)
 					{
@@ -217,7 +216,7 @@ public class Portfolio {
 						return false;
 					}
 					
-					updateBalance(-tQuantity * stockStatus[i].getCurrentAsk());
+					updateBalance(-tQuantity * stockStatus[i].getAsk());
 					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()+tQuantity);
 					
 					return true;
@@ -236,7 +235,7 @@ public class Portfolio {
 		float sum = 0;
 		for(int i=0; i < portfolioSize; i++)
 		{
-			sum += stockStatus[i].getStockQuantity() * stockStatus[i].getCurrentBid();
+			sum += stockStatus[i].getStockQuantity() * stockStatus[i].getBid();
 		}
 		return sum;
 	}
@@ -285,10 +284,10 @@ public class Portfolio {
 	 */
 	public String getHtmlString()
 	{
-		String str = "<h1><font color=green>" + getTitle() + "</font></h1>" + "<br/>";
-		str += "Total Portfolio Value: " + getTotalValue() +
-				"$, Total Stocks Value: " + getStocksValue() +
-				"$, Balance: " + getBalance() + "<br/>";
+		String str = "<h1><font color=turquoise>" + getTitle() + "</font></h1>" + "<br/>";
+		str += "<b>Total Portfolio Value:</b> " + getTotalValue() +
+				"$, <b>Total Stocks Value:</b> " + getStocksValue() +
+				"$, <b>Balance:</b> " + getBalance() + "<br/>";
 		for(int i = 0; i < portfolioSize; i++)
 		{
 			str += stocks[i].getHtmlDescription() + ", <b>Quantity:</b> " + stockStatus[i].getStockQuantity() +"<br/>";
@@ -301,17 +300,15 @@ public class Portfolio {
 	 * @author karin
 	 *
 	 */
-	public class StockStatus{
+	/*public class StockStatus{
 		
 		private String symbol;
 		private float currentBid, currentAsk;
 		private Date date;
 		private ALGO_RECOMMENDATION recommendation;
 		private int stockQuantity;
-		
-		/**
-		 * c'tor of stockStatus.
-		 */
+	
+	
 		public StockStatus() {
 			symbol = "None";
 			currentAsk = 0;
@@ -323,7 +320,7 @@ public class Portfolio {
 		/**
 		 * copy c'tor of stockStatus.
 		 * @param stockStatus
-		 */
+		 
 		public StockStatus(StockStatus stockStatus)
 		{
 			this();
@@ -383,6 +380,6 @@ public class Portfolio {
 			this.stockQuantity = stockQuantity;
 		}
 
-	}
+	}*/
 
 }

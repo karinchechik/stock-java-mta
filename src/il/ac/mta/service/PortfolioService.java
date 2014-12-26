@@ -14,7 +14,7 @@ public class PortfolioService {
 	 */
 	public Portfolio getPortfolio()
 	{
-		Portfolio myPortfolio = new Portfolio("Exercise 7 portfolio");
+		Portfolio myPortfolio = new Portfolio("Exercise 8 portfolio");
 		
 		//Date:
 		Calendar basicDate = Calendar.getInstance();

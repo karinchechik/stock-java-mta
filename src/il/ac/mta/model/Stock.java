@@ -13,11 +13,11 @@ import java.util.Date;
  */
 public class Stock {
 	//Members:
-		private String stockSymbol;
-		private float ask;
-		private float bid;
-		Calendar basicDate = Calendar.getInstance();
-		java.util.Date date = basicDate.getTime(); 
+		protected String stockSymbol;
+		protected float ask;
+		protected float bid;
+		protected Calendar basicDate = Calendar.getInstance();
+		protected java.util.Date date = basicDate.getTime(); 
 		
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		
