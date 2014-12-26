@@ -272,7 +272,7 @@ public class Portfolio {
 		String str = "<h1><font color=turquoise>" + getTitle() + "</font></h1>" + "<br/>";
 		str += "<b>Total Portfolio Value:</b> " + getTotalValue() +
 				"$, <b>Total Stocks Value:</b> " + getStocksValue() +
-				"$, <b>Balance:</b> " + getBalance() + "<br/>";
+				"$, <b>Balance:</b> " + getBalance() + "$<br/>";
 		for(int i = 0; i < portfolioSize; i++)
 		{
 			str += stockStatus[i].getHtmlDescription() + ", <b>Quantity:</b> " + stockStatus[i].getStockQuantity() +"<br/>";
