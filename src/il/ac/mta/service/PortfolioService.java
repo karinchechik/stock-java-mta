@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import il.ac.mta.model.Portfolio;
+import il.ac.mta.model.Stock;
 import il.ac.mta.model.StockStatus;
 
 public class PortfolioService {
@@ -22,14 +23,14 @@ public class PortfolioService {
 		basicDate.set(2014,11,15);
 		java.util.Date date = basicDate.getTime();
 	    
-		StockStatus stock1 = new StockStatus("PIH", 10f, 8.5f,date);
-		StockStatus stock2 = new StockStatus("AAL", 30f, 25.5f, date);
-		StockStatus stock3 = new StockStatus("CAAS", 20f, 15.5f, date);
+		Stock stock1 = new StockStatus("PIH", 10f, 8.5f,date);
+		Stock stock2 = new StockStatus("AAL", 30f, 25.5f, date);
+		Stock stock3 = new StockStatus("CAAS", 20f, 15.5f, date);
 		
 		//Add the stocks to the portfolio:
-		myPortfolio.addStockStatus(stock1);
-		myPortfolio.addStockStatus(stock2);
-		myPortfolio.addStockStatus(stock3);
+		myPortfolio.addStock(stock1);
+		myPortfolio.addStock(stock2);
+		myPortfolio.addStock(stock3);
 		
 		myPortfolio.updateBalance(10000f);
 		

@@ -84,11 +84,11 @@ public class Portfolio {
 	 * This method adds a new stock to the portfolio.
 	 * @param stock
 	 */
-	public void addStockStatus(StockStatus stockStatus)
+	public void addStock(Stock stock)
 	{
 		for(int i=0; i < portfolioSize; i++)
 		{
-			if(this.stockStatus[i].getStockSymbol().equals(stockStatus.getStockSymbol()))
+			if(this.stockStatus[i].getStockSymbol().equals(stock.getStockSymbol()))
 			{
 				return;
 			}
@@ -97,10 +97,10 @@ public class Portfolio {
 		if(portfolioSize < MAX_PORTFOLIO_SIZE)
 		{
 			this.stockStatus[portfolioSize] = new StockStatus();
-			this.stockStatus[portfolioSize].setStockSymbol(stockStatus.getStockSymbol());
-			this.stockStatus[portfolioSize].setAsk(stockStatus.getAsk());
-			this.stockStatus[portfolioSize].setBid(stockStatus.getBid());
-			this.stockStatus[portfolioSize].setDate(new Date(stockStatus.date.getTime()));
+			this.stockStatus[portfolioSize].setStockSymbol(stock.getStockSymbol());
+			this.stockStatus[portfolioSize].setAsk(stock.getAsk());
+			this.stockStatus[portfolioSize].setBid(stock.getBid());
+			this.stockStatus[portfolioSize].setDate(new Date(stock.date.getTime()));
 			portfolioSize++;
 		}
 		else
