@@ -17,8 +17,6 @@ public class PortfolioServlet extends HttpServlet {
 		PortfolioService portfolioService = new PortfolioService();
 		Portfolio portfolio = portfolioService.getPortfolio();
 		
-		//unused for now: Stock[] stocks = portfolio.getStocks();
-		
 		resp.setContentType("text/html");
 		resp.getWriter().println(portfolio.getHtmlString());
 		resp.getWriter().println("</br>");		
