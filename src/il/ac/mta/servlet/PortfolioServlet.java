@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This class is used for adding output to the HTML page at the user's browser.
+ */
 @SuppressWarnings("serial")
 public class PortfolioServlet extends HttpServlet {
 	
