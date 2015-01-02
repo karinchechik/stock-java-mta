@@ -4,7 +4,6 @@ import java.util.Date;
 /**
  * This is a class of portfolio.
  * Every portfolio can hold stocks.
- * Every stock has stock status that is private to the portfolio holder.
  * @author karin
  *
  */
@@ -269,19 +268,18 @@ public class Portfolio {
 	 */
 	public String getHtmlString()
 	{
-		String str = "<div style=\"margin-left: auto;margin-right: auto;width: 90%;"
+		StringBuilder sb = new StringBuilder();
+		sb.append("<div style=\"margin-left: auto;margin-right: auto;width: 90%;"
 				+ "background-color: #FF5050 ;text-align:center;font-weight:bold;font-size:200%\">"
-				//+ "<h1><font color=turquoise>" 
-				+ getTitle() //+ "</font></h1>" + "<br/>";
-				+ "</div><p>";
-		str += "<b>Total Portfolio Value:</b> " + getTotalValue() +
+				+ getTitle()+ "</div><p>");
+		sb.append("<b>Total Portfolio Value:</b> " + getTotalValue() +
 				"$, <b>Total Stocks Value:</b> " + getStocksValue() +
-				"$, <b>Balance:</b> " + getBalance() + "$<br/>";
+				"$, <b>Balance:</b> " + getBalance() + "$<br/>");
 		for(int i = 0; i < portfolioSize; i++)
 		{
-			str += stockStatus[i].getHtmlDescription() + ", <b>Quantity:</b> " + stockStatus[i].getStockQuantity() +"<br/>";
+			sb.append(stockStatus[i].getHtmlDescription() + ", <b>Quantity:</b> " + stockStatus[i].getStockQuantity() +"<br/>");
 		}
-		return str;
+		return sb.toString();
 	}
 
 }

@@ -90,7 +90,6 @@ public class Stock {
 		 */
 
 		public String getHtmlDescription() {
-			//String dateStr = (date.getMonth()+1) + "/" + date.getDate() + "/" + (date.getYear()+1900);
 			String dateStr = df.format(date.getTime()) ;
 			String str = "<b>" + "Stock symbol: " + "</b>" + stockSymbol + ", " + "<b>" + "Ask: " + "</b>" + ask + ", " + "<b>" + "Bid: " + "</b>" + bid + ", " + "<b>" + "Date: " + "</b>" + dateStr;
 			return str;

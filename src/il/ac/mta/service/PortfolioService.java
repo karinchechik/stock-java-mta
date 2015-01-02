@@ -10,7 +10,6 @@ import il.ac.mta.model.StockStatus;
 /**
  * This class is used for making a portfolio and using it.
  * @author karin
- *
  */
 public class PortfolioService {
 	

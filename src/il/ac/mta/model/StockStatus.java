@@ -3,7 +3,12 @@ package il.ac.mta.model;
 import java.util.Date;
 
 import il.ac.mta.model.Portfolio.ALGO_RECOMMENDATION;
-
+/**
+ * This is a class of stock status.
+ * Stock status is an extend of Stock.
+ * @author karin
+ *
+ */
 public class StockStatus extends Stock{
 	private ALGO_RECOMMENDATION recommendation;
 	private int stockQuantity;
