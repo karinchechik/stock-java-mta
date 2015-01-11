@@ -3,6 +3,10 @@ package il.ac.mta.service;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import il.ac.mta.exception.BalanceException;
+import il.ac.mta.exception.PortfolioFullException;
+import il.ac.mta.exception.StockAlreadyExistsException;
+import il.ac.mta.exception.StockNotExistException;
 import il.ac.mta.model.Portfolio;
 import il.ac.mta.model.Stock;
 import il.ac.mta.model.StockStatus;
@@ -16,8 +20,12 @@ public class PortfolioService {
 	/**
 	 * This method returns a new portfolio - updated.
 	 * @return
+	 * @throws PortfolioFullException 
+	 * @throws StockAlreadyExistsException
+	 * @throws StockNotExistException 
+	 * @throws BalanceException 
 	 */
-	public Portfolio getPortfolio()
+	public Portfolio getPortfolio() throws PortfolioFullException, StockAlreadyExistsException, StockNotExistException, BalanceException
 	{
 		Portfolio myPortfolio = new Portfolio("Exercise 8 portfolio");
 		
@@ -34,6 +42,7 @@ public class PortfolioService {
 		//Add the stocks to the portfolio:
 		myPortfolio.addStock(stock1);
 		myPortfolio.addStock(stock2);
+		myPortfolio.addStock(stock3);
 		myPortfolio.addStock(stock3);
 		
 		myPortfolio.updateBalance(10000f);

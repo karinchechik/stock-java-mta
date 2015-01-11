@@ -1,5 +1,7 @@
 package il.ac.mta.model;
 
+import il.ac.mta.exception.*;
+
 import java.util.Date;
 /**
  * This is a class of portfolio.
@@ -83,13 +85,13 @@ public class Portfolio {
 	 * This method adds a new stock to the portfolio.
 	 * @param stock
 	 */
-	public void addStock(Stock stock)
+	public void addStock(Stock stock) throws PortfolioFullException, StockAlreadyExistsException
 	{
 		for(int i=0; i < portfolioSize; i++)
 		{
 			if(this.stockStatus[i].getStockSymbol().equals(stock.getStockSymbol()))
 			{
-				return;
+				throw new StockAlreadyExistsException();
 			}
 		}
 		
@@ -104,15 +106,16 @@ public class Portfolio {
 		}
 		else
 		{
-			System.out.println("Can't add new stock, portfolio can have only " + MAX_PORTFOLIO_SIZE + " stocks");
+			throw new PortfolioFullException();
 		}
 	}
 	
 	/**
 	 * This method receives a stock and removes it from the portfolio.
 	 * @param stock
+	 * @throws StockNotExistException 
 	 */
-	public boolean removeStock(String stockSymbol)
+	public void removeStock(String stockSymbol) throws StockNotExistException
 	{
 		for(int i=0; i < portfolioSize; i++)
 		{
@@ -133,10 +136,10 @@ public class Portfolio {
 					this.stockStatus[portfolioSize-1] = null;
 				}
 				this.portfolioSize--;
-				return true;
+				return;
 			}
 		}
-		return false;
+		throw new StockNotExistException();
 	}
 	
 	/**
@@ -144,8 +147,9 @@ public class Portfolio {
 	 * @param symbol
 	 * @param quantity
 	 * @return
+	 * @throws StockNotExistException 
 	 */
-	public boolean sellStock(String symbol, int quantity)
+	public void sellStock(String symbol, int quantity) throws StockNotExistException
 	{
 		int tQuantity;
 		int maxQuantity;
@@ -164,26 +168,27 @@ public class Portfolio {
 					else if(quantity > maxQuantity)
 					{
 						System.out.println("Not enough stocks to sell!");
-						return false;
+						return;
 					}
 
 					updateBalance(tQuantity * stockStatus[i].getBid());
 					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()-tQuantity);
-					return true;
+					return;
 				}
 			}
 		}
-		return false;
+		throw new StockNotExistException();
 	}
 
-	
 	/**
 	 * This method buys stocks (from 1 to as many as possible according to the balance).
 	 * @param symbol
 	 * @param quantity
 	 * @return
+	 * @throws BalanceException 
+	 * @throws StockNotExistException 
 	 */
-	public boolean buyStock(String symbol, int quantity)
+	public void buyStock(String symbol, int quantity) throws BalanceException, StockNotExistException
 	{
 		int maxQuantity; 
 		int tQuantity;
@@ -201,18 +206,17 @@ public class Portfolio {
 						tQuantity = maxQuantity;
 					}
 					else if (quantity > maxQuantity){
-						System.out.println("Not enough balance to complete purchase!");
-						return false;
+						throw new BalanceException();
 					}
 					
 					updateBalance(-tQuantity * stockStatus[i].getAsk());
 					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()+tQuantity);
 					
-					return true;
+					return;
 				}
 			}
 		}
-		return false;
+		throw new StockNotExistException();
 	}
 	
 	/**
