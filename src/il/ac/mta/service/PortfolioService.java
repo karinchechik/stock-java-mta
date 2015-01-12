@@ -27,7 +27,7 @@ public class PortfolioService {
 	 */
 	public Portfolio getPortfolio() throws PortfolioFullException, StockAlreadyExistsException, StockNotExistException, BalanceException
 	{
-		Portfolio myPortfolio = new Portfolio("Exercise 8 portfolio");
+		Portfolio myPortfolio = new Portfolio("Exercise 9 portfolio");
 		
 		//Date:
 		Calendar basicDate = Calendar.getInstance();
@@ -44,6 +44,7 @@ public class PortfolioService {
 		myPortfolio.addStock(stock2);
 		myPortfolio.addStock(stock3);
 		myPortfolio.addStock(stock3);
+		
 		
 		myPortfolio.updateBalance(10000f);
 		

@@ -31,7 +31,6 @@ public class PortfolioServlet extends HttpServlet {
 		} catch (PortfolioFullException | StockAlreadyExistsException
 				| StockNotExistException | BalanceException e) {
 			resp.getWriter().println(e.getMessage());
-			e.printStackTrace();
 		}
 			
 	}

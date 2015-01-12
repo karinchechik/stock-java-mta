@@ -5,6 +5,8 @@ package il.ac.mta.exception;
  * @author karin
  */
 public class PortfolioFullException extends Exception {
+
+	private static final long serialVersionUID = 1L;
 	private static final int MAX_PORTFOLIO_SIZE = 5;
 
 	public PortfolioFullException(){
