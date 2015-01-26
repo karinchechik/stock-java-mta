@@ -57,7 +57,7 @@ public class Stock {
 		}
 		
 		//Getters:
-		public String getStockSymbol(){
+		public String getSymbol(){
 			return stockSymbol;	
 		}
 		public float getAsk(){

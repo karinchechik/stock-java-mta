@@ -64,4 +64,12 @@ public class StockStatus extends Stock{
 		setBid(bid);
 		setDate(new Date(date.getTime()));
 	}
+
+	public StockStatus(Stock stock) {
+		this();
+		setStockSymbol(stockSymbol);
+		setAsk(ask);
+		setBid(bid);
+		setDate(new Date(date.getTime()));
+	}
 }

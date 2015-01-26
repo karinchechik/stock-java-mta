@@ -1,37 +1,38 @@
 package il.ac.mta.servlet;
 
-import il.ac.mta.exception.BalanceException;
-import il.ac.mta.exception.PortfolioFullException;
-import il.ac.mta.exception.StockAlreadyExistsException;
-import il.ac.mta.exception.StockNotExistException;
-import il.ac.mta.model.Portfolio;
-import il.ac.mta.service.PortfolioService;
+import il.ac.mta.dto.PortfolioDto;
+import il.ac.mta.dto.PortfolioTotalStatus;
+import il.ac.mta.model.StockStatus;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * This class is used for adding output to the HTML page at the user's browser.
- */
-@SuppressWarnings("serial")
-public class PortfolioServlet extends HttpServlet {
-	
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		PortfolioService portfolioService = new PortfolioService();
-		Portfolio portfolio;
-		try {
-			portfolio = portfolioService.getPortfolio();
-			resp.setContentType("text/html");
-			resp.getWriter().println(portfolio.getHtmlString());
-			resp.getWriter().println("</br>");
-		} catch (PortfolioFullException | StockAlreadyExistsException
-				| StockNotExistException | BalanceException e) {
-			resp.getWriter().println(e.getMessage());
+public class PortfolioServlet extends AbstractAlgoServlet {
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		resp.setContentType("application/json");
+		
+		PortfolioTotalStatus[] totalStatus = portfolioService.getPortfolioTotalStatus();
+		StockStatus[] stockStatusArray = portfolioService.getPortfolio().getStocks();
+		List<StockStatus> stockStatusList = new ArrayList<>();
+		for (StockStatus ss : stockStatusArray) {
+			if(ss != null)
+				stockStatusList.add(ss);
 		}
-			
+		
+		PortfolioDto pDto = new PortfolioDto();
+		pDto.setTitle(portfolioService.getPortfolio().getTitle());
+		pDto.setTotalStatus(totalStatus);
+		pDto.setStockTable(stockStatusList);
+		resp.getWriter().print(withNullObjects().toJson(pDto));
 	}
 }
