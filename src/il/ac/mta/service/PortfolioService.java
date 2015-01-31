@@ -161,7 +161,7 @@ public class PortfolioService {
 		}
 	}
 	
-	public void buyStock(String symbol, int quantity) throws BalanceException, StockNotExistsException {
+	public void buyStock(String symbol, int quantity) throws BalanceException, StockNotExistsException, IllegalQuantityException {
 		getPortfolio().buyStock(symbol, quantity);
 		flush();
 	}

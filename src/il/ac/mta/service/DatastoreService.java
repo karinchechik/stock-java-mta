@@ -255,7 +255,13 @@ public class DatastoreService {
 
 	public void updatePortfolio(Portfolio portfolio) {
 		updateEntity(portfolioToEntity(portfolio));
-		updateStocks(Lists.newArrayList(portfolio.getStocks()));
+		StockStatus [] ss = portfolio.getStocks();
+		ArrayList<StockStatus> arr = new ArrayList<StockStatus>();
+		for(StockStatus s : ss) {
+			if(s != null) arr.add(s);
+		}
+		
+		updateStocks(arr);
 	}
 
 	private void updateEntity(Entity entity) {
@@ -265,7 +271,7 @@ public class DatastoreService {
 
 	private StockStatus fromStockEntry(Entity stockEntity) {
 		StockStatus ret = new StockStatus();
-		ret.setStockSymbol((String) stockEntity.getProperty(SYMBOL));
+		ret.setSymbol((String) stockEntity.getProperty(SYMBOL));
 		ret.setAsk(((Double) stockEntity.getProperty(ASK)).floatValue());
 		ret.setBid(((Double) stockEntity.getProperty(BID)).floatValue());
 		ret.setDate((Date) stockEntity.getProperty(DAY));

@@ -33,6 +33,7 @@ public class PortfolioServlet extends AbstractAlgoServlet {
 		pDto.setTitle(portfolioService.getPortfolio().getTitle());
 		pDto.setTotalStatus(totalStatus);
 		pDto.setStockTable(stockStatusList);
-		resp.getWriter().print(withNullObjects().toJson(pDto));
+		String bla = withNullObjects().toJson(pDto);
+		resp.getWriter().print(bla);
 	}
 }
