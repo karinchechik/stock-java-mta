@@ -3,8 +3,6 @@ package il.ac.mta.model;
 import il.ac.mta.exception.*;
 
 import java.util.*;
-
-import com.google.appengine.labs.repackaged.com.google.common.collect.Lists;
 /**
  * This is a class of portfolio.
  * Every portfolio can hold stocks.
@@ -278,7 +276,7 @@ public class Portfolio {
 	 * The get stocks value methods return the value of all the stocks in this portfolio.
 	 * @return
 	 */
-	public float getStocksValue()
+	public float getStocksValue(Stock stock[])
 	{
 		float sum = 0;
 		for(int i=0; i < portfolioSize; i++)
@@ -298,7 +296,7 @@ public class Portfolio {
 	 */
 	public float getTotalValue()
 	{
-		return getStocksValue() + getBalance();
+		return (getStocksValue(stockStatus) + getBalance());
 	}
 	
 	public StockStatus[] getStockStatus() {
@@ -343,7 +341,7 @@ public class Portfolio {
 				+ "background-color: #FF5050 ;text-align:center;font-weight:bold;font-size:200%\">"
 				+ getTitle()+ "</div><p>");
 		sb.append("<b>Total Portfolio Value:</b> " + getTotalValue() +
-				"$, <b>Total Stocks Value:</b> " + getStocksValue() +
+				"$, <b>Total Stocks Value:</b> " + getStocksValue(stockStatus) +
 				"$, <b>Balance:</b> " + getBalance() + "$<br/>");
 		for(int i = 0; i < portfolioSize; i++)
 		{
