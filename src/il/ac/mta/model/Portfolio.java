@@ -47,19 +47,6 @@ public class Portfolio {
 		this.setTitle(title);
 	}
 	
-	/*public Portfolio(ArrayList stockStatus)
-	{
-		/*for(int idx = 0; idx< stockStatus.size(); idx++)
-		{
-			this.stockStatus[idx].se;
-		}
-		
-		for(StockStatus stockStatus1: stockStatus)
-		{
-			stockStatus1.add(new StockStatus(stockStatus));
-		}
-	}*/
-	
 	/**
 	 * copy constructor.
 	 * Receives an instance of portfolio and copies it.
@@ -75,11 +62,7 @@ public class Portfolio {
 		{
 			stockStatus[i] = new StockStatus(portfolio.getStockStatus()[i]);
 		}
-		
-		/*for(StockStatus stockStatus: portfolio.stockStatus)
-		{
-			stockStatus.add(new StockStatus(stockStatus));
-		}*/
+
 		updateBalance(portfolio.getBalance());
 	}
 
@@ -135,6 +118,8 @@ public class Portfolio {
 			this.stockStatus[portfolioSize].setAsk(stock.getAsk());
 			this.stockStatus[portfolioSize].setBid(stock.getBid());
 			this.stockStatus[portfolioSize].setDate(new Date(stock.date.getTime()));
+			if(stock instanceof StockStatus)
+				this.stockStatus[portfolioSize].setRecommendation(((StockStatus) stock).getRecommendation());
 			portfolioSize++;
 		}
 		else
@@ -146,19 +131,7 @@ public class Portfolio {
 	public StockStatus[] getStocks(){
 		return stockStatus;
 	}
-	
-	
-//	public ArrayList<StockStatus> getStocks() {
-//		ArrayList<StockStatus> s = new ArrayList<StockStatus>();
-//		int i;
-//		for(i = 0; i<MAX_PORTFOLIO_SIZE; i++) {
-//			if(stockStatus[i] != null) {
-//				s.add(stockStatus[i]);
-//			}
-//		}
-//		return s;
-//	}
-//	
+
 	
 	/**
 	 * This method receives a stock and removes it from the portfolio.
@@ -276,7 +249,7 @@ public class Portfolio {
 	 * The get stocks value methods return the value of all the stocks in this portfolio.
 	 * @return
 	 */
-	public float getStocksValue(Stock stock[])
+	public float getStocksValue(StockStatus stockStatus[])
 	{
 		float sum = 0;
 		for(int i=0; i < portfolioSize; i++)
@@ -302,18 +275,6 @@ public class Portfolio {
 	public StockStatus[] getStockStatus() {
 		return stockStatus;
 	}
-
-//	public ArrayList<StockStatus> getStockStatus() {
-//		ArrayList<StockStatus> s = new ArrayList<StockStatus>();
-//		int i;
-//		for(i = 0; i<MAX_PORTFOLIO_SIZE; i++) {
-//			if(stockStatus[i] != null) {
-//				s.add(stockStatus[i]);
-//			}
-//		}
-//		return s;
-//	}
-
 	
 	/**
 	 * A method that updates the balance of the stock.

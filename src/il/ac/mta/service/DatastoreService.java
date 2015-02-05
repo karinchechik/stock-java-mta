@@ -297,15 +297,6 @@ public class DatastoreService {
 		return entity;
 	}
 
-	/*private Entity accountToEntity(Account account) {
-		Entity entity = new Entity(NAMESPACE_ACCOUNT, 1);
-		entity.setProperty(USERNAME, account.getUsername());
-		entity.setProperty(PASSWORD, account.getPassword());
-		entity.setProperty(BALANCE, account.getBalance());
-
-		return entity;
-	}*/
-
 	private Entity portfolioToEntity(Portfolio portfolio) {
 		Entity entity = new Entity(NAMESPACE_PORTFOLIO, 1);
 		entity.setProperty(TITLE, portfolio.getTitle());
